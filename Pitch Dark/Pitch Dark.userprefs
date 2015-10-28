@@ -1,16 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GridThing.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ObjectFactory.cs">
     <Files>
-      <File FileName="Assets/Scripts/Character.cs" Line="47" Column="57" />
+      <File FileName="Assets/Scripts/UIGridPathSegment.cs" Line="49" Column="45" />
+      <File FileName="Assets/Scripts/Main.cs" Line="16" Column="31" />
+      <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CameraControls.cs" Line="1" Column="1" />
-      <File FileName="../Documents/Unity Examples/Example1/Assets/AstarPathfindingProject/Core/AstarData.cs" Line="1" Column="1" />
-      <File FileName="../Documents/Unity Examples/Example1/Assets/AstarPathfindingProject/Core/astarclasses.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/AStar.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Grid.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Main.cs" Line="22" Column="62" />
-      <File FileName="Assets/Scripts/Tile.cs" Line="16" Column="1" />
-      <File FileName="Assets/Scripts/GridThing.cs" Line="35" Column="6" />
+      <File FileName="Assets/Scripts/Tile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GridThing.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UIGridPath.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ObjectFactory.cs" Line="51" Column="34" />
+      <File FileName="Assets/Scripts/Direction.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Highlight.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Informant.cs" Line="5" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

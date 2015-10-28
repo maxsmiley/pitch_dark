@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 namespace Game {
-	public class GridThing : MonoBehaviour {
+	public class GridThing : Informant { // TODO: Turn into abstract - rename GridOriented or something then make GridPlacable its own thing as well 
 		public int grid_x;
 		public int grid_y;
 		public float display_offset_x = 0f;
 		public float display_offset_y = 0f;
-		public enum Pathability {
+
+		public enum Pathability { //TODO: Move to interface Pathable
 			//TODO: make this own class probably
 			walkable,
 			unwalkable
@@ -14,7 +15,7 @@ namespace Game {
 		public Pathability pathing = Pathability.walkable;
 
 		// UI Stuff
-		public enum HighlightType {
+		public enum HighlightType { //TODO: Move to interface Highlightable
 			//TODO: make this own class probably
 			highlighted, 
 			selected
@@ -35,14 +36,17 @@ namespace Game {
 		void Update () {
 		}
 
+		//TODO: Move all highlight and mouse logic into the hands of the UIManager
 		void OnMouseEnter() { 
-			//Debug.Log("mouse enter " + grid_x + " " + grid_y); 
 			setHighlighted (true);
 		} 
 
 		void OnMouseExit() {
-			//Debug.Log("mouse exit " + grid_x + " " + grid_y); 
 			setHighlighted (false);
+		}
+
+		void OnMouseDown() {
+			setSelected (isHighlighted ());
 		}
 
 		protected virtual void updateColor(){

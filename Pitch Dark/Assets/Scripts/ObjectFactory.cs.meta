@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3fcdf8e054dc24335a5ecb4eca563c9d
+timeCreated: 1445898005
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - TileObject: {fileID: 175284, guid: 4458da7d5d6044664933b4ef3408d41f, type: 2}
+  - CharacterObject: {fileID: 111072, guid: 24ee540eecc224938b1c8f99b2afd375, type: 2}
+  - UIGridPathSegment: {fileID: 179068, guid: c0594c088a0d8410f88b9bd38012acb2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

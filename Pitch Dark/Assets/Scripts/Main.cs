@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Game 
 {
-	//TODO: rename to "MAP" or something
+	//TODO: create a Game and seperate UIManager and Game and pass eachother each
 	public class Main : MonoBehaviour {
 
 		// Game Logic
@@ -13,15 +13,11 @@ namespace Game
 		public int gridRowCount = 5;
 		public int gridColCount = 5;
 
-		// Prefabs
-		public GameObject TileObject;
-		public GameObject CharacterObject; 
-		public GameObject UI_Sprite; 
+		// Instantiated in Inspector
+		public ObjectFactory objectFactory; 
+		public UIManager ui_manager;
 
-		// UI Stuff
-		private List<GameObject> walking_path = new List<GameObject> ();
 
-		private Dictionary<Tile, GameObject> tileObjects = new Dictionary<Tile, GameObject>();
 		/* Think about how best to represent classes of characters, 
 		 * should they extend this object? Or should Character be an interface, or should
 		 * it all be handled by like json...
@@ -39,32 +35,16 @@ namespace Game
 		}
 
 		private Grid createGrid(int cols, int rows) {
-			return new Grid (this, cols, rows);
+			return new Grid (objectFactory, cols, rows);
 		}
 
 		public ArrayList getCharacters() {
 			ArrayList characters = new ArrayList ();
 
 			//Hardcoded for now
-			characters.Add(createCharacter(grid, 0, 0));
+			characters.Add(objectFactory.createCharacter(grid, 0, 0));
 
 			return characters;
-		}
-
-		public GameObject createCharacter(Grid grid, int x_pos, int y_pos) {
-			var character = Instantiate (CharacterObject);
-			character.GetComponent<Character> ().setGrid (grid);
-			character.GetComponent<Character>().setGridPosition (grid, x_pos, y_pos);
-			return character;
-		}
-		
-		public Tile createTile(Grid grid, int x_pos, int y_pos) {
-			GameObject tile_obj = Instantiate(TileObject);
-			Tile tile = tile_obj.GetComponent<Tile> ();
-			tileObjects [tile] = tile_obj;
-			tile.setGridPosition (grid, x_pos, y_pos);
-			tile.allignTranformPositionWithGridPosition ();
-			return tile;
 		}
 
 		public void createWalkingPath (List<Tile> path){

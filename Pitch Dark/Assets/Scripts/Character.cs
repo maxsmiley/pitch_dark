@@ -18,6 +18,7 @@ namespace Game {
 		private bool color_cycle_up = false;
 		// Use this for initialization
 		void Start () {
+			GetComponent<ParticleSystem>().enableEmission = isSelected();
 		}
 		
 		// Update is called once per frame
@@ -41,15 +42,23 @@ namespace Game {
 
 		protected override void highlightChanged ()
 		{
+			// TODO: Move this logic to UIManager?
 			// TODO: decide if should call -> base.highlightChanged ();
+			GetComponent<ParticleSystem>().enableEmission = isSelected();
 			updateColor ();
 			foreach (var tile in move_range) {
-				tile.setWalkableForSelectedCharacter(isHighlighted());
+				tile.setWalkableForSelectedCharacter(isSelected());
+				tile.setWalkableForHighlightedCharacter(isHighlighted());
 			}
+
 		}
 
 		protected override void updateColor(){
-			if (isHighlighted()) {
+			if (isSelected ()) {
+				color_cycle += color_cycle_up ? .007f : -.004f;
+				color_cycle_up =  color_cycle_up ? color_cycle <= 1.1f : !(color_cycle >= .82f);
+				GetComponent<SpriteRenderer> ().color = new Color (1.7f-color_cycle, 1.7f-color_cycle, color_cycle,1f);
+			} else if (isHighlighted()) {
 				color_cycle += color_cycle_up ? .007f : -.004f;
 				color_cycle_up =  color_cycle_up ? color_cycle <= 1.1f : !(color_cycle >= .82f);
 				GetComponent<SpriteRenderer> ().color = new Color (1.7f-color_cycle, 1.7f-color_cycle, color_cycle,1f);

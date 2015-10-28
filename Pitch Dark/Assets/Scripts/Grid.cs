@@ -10,14 +10,14 @@ namespace Game
 		public int rows;
 		public int gridTileWidth = 32;
 
-		public Grid(Main main, int cols, int rows) {
+		public Grid(ObjectFactory factory, int cols, int rows) {
 			this.cols = cols;
 			this.rows = rows;
 			tiles = new List<List<Tile>> ();
 			for (int i = 0; i < cols; i++) {
 				List<Tile> column = new List<Tile>();
 				for (int j = 0; j < rows; j++) {
-					column.Add(main.createTile(this, i,j));
+					column.Add(factory.createTile(this, i,j));
 				}
 				tiles.Add (column);
 			}
