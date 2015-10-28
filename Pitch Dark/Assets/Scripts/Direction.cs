@@ -19,6 +19,9 @@ namespace Game {
 			if (a == null || b == null) {
 				return Direction.none;
 			}
+			if (a.grid_x == b.grid_x && a.grid_y == b.grid_y) {
+				return Direction.none;
+			}
 			if (a.grid_x > b.grid_x) {
 				return Direction.left;
 			} 

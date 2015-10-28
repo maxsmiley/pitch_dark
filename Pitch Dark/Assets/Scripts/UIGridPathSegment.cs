@@ -8,11 +8,13 @@ public class UIGridPathSegment : GridThing {
 		public Sprite straight; // --
 		public Sprite bend; // _|
 		public Sprite terminal; // -•
+		public Sprite singular; // •
 
 		public enum Type {
 			straight,
 			bend,
 			terminal,
+			singular,
 			none
 		}
 
@@ -28,7 +30,7 @@ public class UIGridPathSegment : GridThing {
 			case Type.straight:
 				GetComponent<SpriteRenderer>().sprite = straight;
 				if (dir_to == Direction.up || dir_to == Direction.down) {
-					rotate (-90);
+					rotate (90);
 				}
 				break;
 			case Type.bend:
@@ -54,6 +56,9 @@ public class UIGridPathSegment : GridThing {
 				} else if (dir == Direction.down) {
 					rotate (270);
 				}
+				break;
+			case Type.singular:
+				GetComponent<SpriteRenderer>().sprite = singular;
 				break;
 			default:
 				Debug.LogError("UIGridSegment not given direction");

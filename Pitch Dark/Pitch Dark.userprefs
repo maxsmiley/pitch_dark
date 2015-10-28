@@ -1,21 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ObjectFactory.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UIGridPathSegment.cs">
     <Files>
-      <File FileName="Assets/Scripts/UIGridPathSegment.cs" Line="49" Column="45" />
-      <File FileName="Assets/Scripts/Main.cs" Line="16" Column="31" />
-      <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UIGridPathSegment.cs" Line="61" Column="53" />
+      <File FileName="Assets/Scripts/Main.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Character.cs" Line="44" Column="18" />
       <File FileName="Assets/Scripts/CameraControls.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/AStar.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Grid.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Tile.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GridThing.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/UIGridPath.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ObjectFactory.cs" Line="51" Column="34" />
+      <File FileName="Assets/Scripts/GridThing.cs" Line="40" Column="23" />
+      <File FileName="Assets/Scripts/UIGridPath.cs" Line="22" Column="12" />
+      <File FileName="Assets/Scripts/ObjectFactory.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Direction.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/UIManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Highlight.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Informant.cs" Line="5" Column="24" />
+      <File FileName="Assets/Scripts/Informant.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

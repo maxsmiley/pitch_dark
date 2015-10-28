@@ -32,6 +32,8 @@ namespace Game {
 			character.GetComponent<Character> ().setGrid (grid);
 			character.GetComponent<Character>().setGridPosition (grid, x_pos, y_pos);
 			//setUpInformant (character);
+			//TEMPT
+			character.GetComponent<Character> ().factory = this;
 			return character;
 		}
 		
@@ -57,6 +59,7 @@ namespace Game {
 		private void setUpInformant(Informant Informant){
 			Informant.setUIManager (ui_manager);
 		}
+
 
 	}
 }

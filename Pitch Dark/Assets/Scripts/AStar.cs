@@ -6,7 +6,7 @@ namespace Game {
 		//TODO: Make this more generic by creating a class / interface that all astarable objects extend instead of using Tile
 		// TIle ---> node, Grid --> Graph
 		public static List<Tile> getShortestPath(Grid grid, Tile start, Tile goal) {
-//		Fancy code for setting a unit for path prediction -- I could do this better... wrapper?
+//		Fancy code for setting a unit for path prediction -- I could do this better... wrapper (not just tile)?
 //			if start.unit:
 //				unit = start.unit
 //					else:

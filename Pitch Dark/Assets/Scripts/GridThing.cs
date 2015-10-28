@@ -36,6 +36,10 @@ namespace Game {
 		void Update () {
 		}
 
+		public virtual void dispose () {
+			Destroy (gameObject);
+		}
+
 		//TODO: Move all highlight and mouse logic into the hands of the UIManager
 		void OnMouseEnter() { 
 			setHighlighted (true);
@@ -124,5 +128,6 @@ namespace Game {
 			}
 			return highlightStates[type];
 		}
+
 	}
 }
