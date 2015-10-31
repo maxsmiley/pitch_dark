@@ -9,7 +9,7 @@ namespace Game
 		// Game Logic
 		public ArrayList characters; //Allies and Enemies, for tracking all characters
 		public ArrayList turnOrder; 
-		Grid grid;
+		private Grid grid;
 		public int gridRowCount = 5;
 		public int gridColCount = 5;
 
@@ -47,9 +47,10 @@ namespace Game
 			return characters;
 		}
 
-		public void createWalkingPath (List<Tile> path){
-
+		public Grid getGrid(){
+			return grid;
 		}
+
 
 	}
 }

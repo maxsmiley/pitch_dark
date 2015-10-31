@@ -9,7 +9,7 @@ namespace Game {
 
 		// Stats
 		public int move_speed = 5;
-		private List<Tile> move_range = null;
+		public List<Tile> move_range = null;
 
 		// Grid Organization
 		private Grid grid;
@@ -32,24 +32,24 @@ namespace Game {
 		// Update is called once per frame
 		void Update () {
 			updateColor ();
-
-			//TODO MOVE THIS TO UIMANAGER
-			if (move_range != null && isSelected())
-			foreach (var tile in move_range) {
-				if(tile.isHighlighted() && tile != goal){
-					if(path != null){
-						path.dispose();
-					}
-					walking_path = AStar.getShortestPath(grid,current_tile,tile);
-					if (walking_path[0] != current_tile) {
-						walking_path.Insert(0,current_tile);
-					} else {
-						walking_path.Remove(walking_path[walking_path.Count - 1]);
-					}
-					path = new UIGridPath(factory, grid, walking_path);
-					break;
-				}
-			}
+//
+//			//TODO MOVE THIS TO UIMANAGER
+//			if (move_range != null && isSelected())
+//			foreach (var tile in move_range) {
+//				if(tile.isHighlighted() && tile != goal){
+//					if(path != null){
+//						path.dispose();
+//					}
+//					walking_path = AStar.getShortestPath(grid,current_tile,tile);
+//					if (walking_path[0] != current_tile) {
+//						walking_path.Insert(0,current_tile);
+//					} else {
+//						walking_path.Remove(walking_path[walking_path.Count - 1]);
+//					}
+//					path = new UIGridPath(factory, grid, walking_path);
+//					break;
+//				}
+//			}
 		}
 
 		public void setGrid(Grid grid) {
@@ -72,11 +72,6 @@ namespace Game {
 			// TODO: decide if should call -> base.highlightChanged ();
 			GetComponent<ParticleSystem>().enableEmission = isSelected();
 			updateColor ();
-			foreach (var tile in move_range) {
-				tile.setWalkableForSelectedCharacter(isSelected());
-				tile.setWalkableForHighlightedCharacter(isHighlighted());
-			}
-
 		}
 
 		protected override void updateColor(){

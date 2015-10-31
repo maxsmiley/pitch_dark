@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 namespace Game {
+
+	//TODO: Highlight should be under a new parent class ---> UIElement
 	public class GridThing : Informant { // TODO: Turn into abstract - rename GridOriented or something then make GridPlacable its own thing as well 
 		public int grid_x;
 		public int grid_y;
@@ -15,16 +17,20 @@ namespace Game {
 		public Pathability pathing = Pathability.walkable;
 
 		// UI Stuff
-		public enum HighlightType { //TODO: Move to interface Highlightable
+		public enum HighlightType { 
 			//TODO: make this own class probably
 			highlighted, 
-			selected
+			selected,
+			walkableForSelectedCharacter,
+			walkableForHighlightedCharacter,
 		}
 
 		private Dictionary<HighlightType, bool> highlightStates = new Dictionary<HighlightType, bool>() 
 		{
 			{HighlightType.highlighted, false},
-			{HighlightType.selected, false}
+			{HighlightType.selected, false},
+			{HighlightType.walkableForHighlightedCharacter, false},
+			{HighlightType.walkableForSelectedCharacter, false}
 		};
 
 		// Use this for initialization
@@ -40,18 +46,7 @@ namespace Game {
 			Destroy (gameObject);
 		}
 
-		//TODO: Move all highlight and mouse logic into the hands of the UIManager
-		void OnMouseEnter() { 
-			setHighlighted (true);
-		} 
 
-		void OnMouseExit() {
-			setHighlighted (false);
-		}
-
-		void OnMouseDown() {
-			setSelected (isHighlighted ());
-		}
 
 		protected virtual void updateColor(){
 			if (isHighlighted()) {
@@ -98,35 +93,47 @@ namespace Game {
 		public void setSelected(bool highlight) {
 			setHighlightState (HighlightType.selected, highlight);
 		}
+		public void setWalkableForHighlightedCharacter(bool highlight) {
+			setHighlightState (HighlightType.walkableForHighlightedCharacter, highlight);
+		}
+		public void setWalkableForSelectedCharacter(bool highlight) {
+			setHighlightState (HighlightType.walkableForSelectedCharacter, highlight);
+		}
 		private void setHighlightState(HighlightType type, bool state){
 			if (highlightStates == null) { //TODO: Solve why the fuck I need to do this... unity u little bitch
-				highlightStates = new Dictionary<HighlightType, bool> () 
-				{
-					{HighlightType.highlighted, false},
-					{HighlightType.selected, false}
-				};
+				highlightStates = createHighlightStateTable();
 			}
 			if (this.highlightStates [type] != state) {
 				this.highlightStates [type] = state;
 				highlightChanged ();
 			}
 		}
-		//Wrap this stuff too?
 		public bool isHighlighted() {
 			return getHighlightState (HighlightType.highlighted);
+		}
+		public bool isWalkableForSelectedCharacter() {
+			return getHighlightState (HighlightType.walkableForSelectedCharacter);
+		}
+		public bool isWalkableForHighlightedCharacter() {
+			return getHighlightState (HighlightType.walkableForHighlightedCharacter);
 		}
 		public bool isSelected() {
 			return getHighlightState (HighlightType.selected);
 		}
 		private bool getHighlightState(HighlightType type) {
 			if (highlightStates == null) { //TODO: Solve why the fuck I need to do this... unity u little bitch
-				highlightStates = new Dictionary<HighlightType, bool> () 
-				{
-					{HighlightType.highlighted, false},
-					{HighlightType.selected, false}
-				};
+					highlightStates =createHighlightStateTable();
 			}
 			return highlightStates[type];
+		}
+		private Dictionary<HighlightType, bool> createHighlightStateTable(){
+			return  new Dictionary<HighlightType, bool> () 
+			{
+				{HighlightType.highlighted, false},
+				{HighlightType.selected, false},
+				{HighlightType.walkableForHighlightedCharacter, false},
+				{HighlightType.walkableForSelectedCharacter, false}
+			};
 		}
 
 	}

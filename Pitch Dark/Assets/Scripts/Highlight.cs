@@ -5,7 +5,8 @@ using System.Collections.Generic;
 namespace Game {
 	public class Highlight {
 
-		UIManager manager; // Or UIAgent?
+		// private void gameLogicThing
+		// private void UIElement/Renderer
 
 		public enum HighlightType { 
 			highlighted, 
@@ -19,8 +20,7 @@ namespace Game {
 		};
 		
 		protected virtual void highlightChanged(){
-			//Inform UIAgent of change
-			//UIAgent then informs manager of change?
+			//Inform UIAgent/Renderer/Element of change
 		}
 
 		public void setHighlighted(bool highlight) {
