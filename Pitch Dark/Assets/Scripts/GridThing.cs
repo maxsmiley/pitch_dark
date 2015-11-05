@@ -6,8 +6,7 @@ namespace Game {
 	public class GridThing : Informant { // TODO: Turn into abstract - rename GridOriented or something then make GridPlacable its own thing as well 
 		public int grid_x;
 		public int grid_y;
-		public float display_offset_x = 0f;
-		public float display_offset_y = 0f;
+		public Vector3 display_offset;
 
 		public enum Pathability { //TODO: Move to interface Pathable
 			//TODO: make this own class probably
@@ -35,7 +34,6 @@ namespace Game {
 
 		// Use this for initialization
 		void Start () {
-
 		}
 		
 		// Update is called once per frame
@@ -48,7 +46,7 @@ namespace Game {
 
 
 
-		protected virtual void updateColor(){
+		protected virtual void updateColor() {
 			if (isHighlighted()) {
 				GetComponent<SpriteRenderer> ().color = new Color (.8f, .8f, 1f, 1f);
 			} else {
@@ -73,16 +71,15 @@ namespace Game {
 
 	
 		// Essentially a change listener for highlights to be overriden by extending classes
-		protected virtual void highlightChanged(){
+		protected virtual void highlightChanged() {
 
 		}
 
-		//TODO: decide if objects should allign themselves or if this should be handled by the gridObject
+		//TODO: decide if objects should allign themselves or if this should be handled by the grid Object
 		public void allignTranformPositionWithGridPosition(){
 			var transform = GetComponent<Transform> ();
 			if (transform != null) {
-				float offset_x = display_offset_x + 2f, offset_y = display_offset_y + 2f;
-				transform.position = new Vector3 (offset_x + ((float)grid_x ), offset_y + ((float)grid_y ), 0f);
+				transform.position = new Vector3 ((float)grid_x , (float)grid_y , 0f) + display_offset;
 			}
 			
 		}
@@ -134,6 +131,20 @@ namespace Game {
 				{HighlightType.walkableForHighlightedCharacter, false},
 				{HighlightType.walkableForSelectedCharacter, false}
 			};
+		}
+
+		public Vector3 getRealPosition(){
+			Vector3 pos = gameObject.transform.position;
+			return pos - display_offset;
+		}
+
+		public void setRealPosition(Vector3 pos) {
+			gameObject.transform.position = pos + display_offset;
+		}
+
+		public void deltaRealPosition(Vector3 delta) {
+			gameObject.transform.position += delta;
+
 		}
 
 	}

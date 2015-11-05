@@ -86,5 +86,15 @@ namespace Game
 			return (grid.cols > x && grid.rows > y && x >= 0 && y >= 0);
 		}
 
+		public Tile getTileFromPoint(float x, float y) {
+			//TODO: determine if should be floor or ceiling
+			int grid_x = (int) Mathf.Ceil(x / gridTileWidth);
+			int grid_y = (int) Mathf.Ceil(y / gridTileWidth);
+			if (inBounds(this, grid_x, grid_y)) {
+				return this.tiles[grid_x][grid_y];
+			}
+			return null;
+		}
+
 	}
 }

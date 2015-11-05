@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System;
 
 namespace Game {
+	//TODO: rename Interface?
 	public class UIManager : MonoBehaviour {
 
 		// Instantiated in Inspector
-		public Main game;
+		public Game game;
 		public ObjectFactory factory;
 
 		// UI Control flow
@@ -20,6 +21,7 @@ namespace Game {
 		}
 		enum UI_Action {
 			none,
+			// Selected Character
 			move,
 		}
 		private UI_Mode mode = UI_Mode.player_unit_turn_pre_action;
@@ -55,9 +57,23 @@ namespace Game {
 			setHighlight (informant, false);
 		}
 
-		public void MouseDowned(Informant informant){
-			// Set selections
-			setSelect (informant, true);
+		// TODO: await for a mouse down instead...
+		public void MouseDowned(Informant informant) {
+			// Move
+			if (mode == UI_Mode.player_unit_turn_during_action && action == UI_Action.move) {
+				if (IsSameOrSubclass(typeof(Tile), informant.GetType())) {
+					Dictionary<string, object> payload = new Dictionary<string, object>()
+					{
+						{"action", ActionType.move},
+						{"character", selectedCharacter},
+						{"path", walking_path},
+					};
+					game.addAction(payload);
+				}
+			} else if (mode == UI_Mode.player_unit_turn_pre_action) {
+				// Set selections
+				setSelect (informant, true);
+			}
 		}
 
 		private void updateMovePath(){
@@ -70,12 +86,13 @@ namespace Game {
 							display_walking_path.dispose ();
 						}
 						walking_path = AStar.getShortestPath (game.getGrid(), selectedCharacter.current_tile, tile);
-						if (walking_path [0] != selectedCharacter.current_tile) {
-							walking_path.Insert (0, selectedCharacter.current_tile);
+						var cropped_walking_path = walking_path;
+						if (cropped_walking_path [0] != selectedCharacter.current_tile) {
+							cropped_walking_path.Insert (0, selectedCharacter.current_tile);
 						} else {
-							walking_path.Remove (walking_path [walking_path.Count - 1]);
+							cropped_walking_path.Remove (walking_path [walking_path.Count - 1]);
 						}
-						display_walking_path = new UIGridPath (factory, game.getGrid(), walking_path);
+						display_walking_path = new UIGridPath (factory, game.getGrid(), cropped_walking_path);
 						break;
 					}
 				}

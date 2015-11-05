@@ -5,7 +5,8 @@ using System.Collections.Generic;
 namespace Game {
 	public class Character : GridThing {
 
-
+		// Control
+		public Action action;
 
 		// Stats
 		public int move_speed = 5;
@@ -22,34 +23,10 @@ namespace Game {
 		void Start () {
 			GetComponent<ParticleSystem>().enableEmission = isSelected();
 		}
-
-		//TEMPPPPP
-		public ObjectFactory factory;
-		private List<Tile> walking_path = new List<Tile> ();
-		private UIGridPath path;
-		private Tile goal = null;
 		
 		// Update is called once per frame
 		void Update () {
 			updateColor ();
-//
-//			//TODO MOVE THIS TO UIMANAGER
-//			if (move_range != null && isSelected())
-//			foreach (var tile in move_range) {
-//				if(tile.isHighlighted() && tile != goal){
-//					if(path != null){
-//						path.dispose();
-//					}
-//					walking_path = AStar.getShortestPath(grid,current_tile,tile);
-//					if (walking_path[0] != current_tile) {
-//						walking_path.Insert(0,current_tile);
-//					} else {
-//						walking_path.Remove(walking_path[walking_path.Count - 1]);
-//					}
-//					path = new UIGridPath(factory, grid, walking_path);
-//					break;
-//				}
-//			}
 		}
 
 		public void setGrid(Grid grid) {
@@ -74,7 +51,7 @@ namespace Game {
 			updateColor ();
 		}
 
-		protected override void updateColor(){
+		protected override void updateColor() {
 			if (isSelected ()) {
 				color_cycle += color_cycle_up ? .007f : -.004f;
 				color_cycle_up =  color_cycle_up ? color_cycle <= 1.1f : !(color_cycle >= .82f);

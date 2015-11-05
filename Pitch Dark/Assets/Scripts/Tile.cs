@@ -8,9 +8,6 @@ namespace Game
 		public Character character; //Make unit???
 
 		//For Rendering Purposes
-		// TODO: decide is should keep record per character for efficiency
-		// TODO: Move this into Highlight/Pathing??
-		private bool walkableForHighlightedCharacter = false;
 
 		// Use this for initialization
 		void Start () {
@@ -21,7 +18,7 @@ namespace Game
 
 		}
 
-		protected override void updateColor(){
+		protected override void updateColor() {
 			if (isHighlighted()) {
 				GetComponent<SpriteRenderer> ().color = new Color (.8f, .8f, 1f, 1f);
 			} else if (isWalkableForSelectedCharacter()) {

@@ -31,9 +31,7 @@ namespace Game {
 			var character = Instantiate (CharacterObject);
 			character.GetComponent<Character> ().setGrid (grid);
 			character.GetComponent<Character>().setGridPosition (grid, x_pos, y_pos);
-			//setUpInformant (character);
-			//TEMPT
-			character.GetComponent<Character> ().factory = this;
+			//setUpInformant (character); // for now the tile the char is in is handling all UI decisions
 			return character;
 		}
 		
