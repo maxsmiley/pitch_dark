@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Game 
 {
-	//TODO: create a Game and seperate UIManager and Game and pass eachother each
-	public class Game : MonoBehaviour {
+    //TODO: create a Game and seperate UIManager and Game and pass eachother each
+    //TODO: move different pillars of Game lgoic into their own classes, for example GameMovement?
+    public class Game : MonoBehaviour {
 
 		// Game Logic
 		public ArrayList characters; // Allies and Enemies, for tracking all characters
@@ -33,8 +34,10 @@ namespace Game
 		
 		// Update is called once per frame
 		void Update () {
-			handleActions ();
-			//Manage Turn Order
+			HandleActions ();
+
+			// Manage Turn Order
+
 		}
 
 		// The only way for external classes to update the game state
@@ -53,14 +56,15 @@ namespace Game
 			}
 		}
 
-		private void handleActions() {
+        //TODO: switch will call different handler classes like GameMovement/MovementHandler..?
+		private void HandleActions() {
 			List<Action> completed = new List<Action> ();
 			foreach (var action in actions) {
 				switch (action.action_type) {
 				case ActionType.move:
-					handleMoveAction (action);
+					HandleMoveAction (action);
 					break;
-				case ActionType.none:
+				case ActionType.none: //maybe add a new type .complete?
 					completed.Add(action);
 					break;
 				default:
@@ -73,7 +77,7 @@ namespace Game
 			
 		}
 
-		private void handleMoveAction(Action action){
+		private void HandleMoveAction(Action action){
 			List<Tile> path = action.payload ["path"] as List<Tile>;
 			if (path.Count > 0) {
 				Tile goal = path [0];
@@ -96,7 +100,13 @@ namespace Game
 			action.action_type = ActionType.none;
 		}
 
-		private Grid createGrid(int cols, int rows) {
+
+        private void HandleTurnOrder()
+        {
+
+        }
+
+        private Grid createGrid(int cols, int rows) {
 			return new Grid (objectFactory, cols, rows);
 		}
 

@@ -8,17 +8,19 @@ namespace Game {
 		none,
 		move,
 	}
-	public class Action  {
-
+    //Some actions may require a callback on completion
+    public delegate void ActionCallback(Dictionary<string, object> payload);
+    public class Action  {
 		public ActionType action_type = ActionType.none;
 
-		/* Payload per action:
+        /* Payload per action:
 		 *  - ActionType action
+		 *  - ActionCallback callback        
 		 * Move:
 		 *  - List<Tile> path
 		 *  - GridThing moveable
 		 */
-		public Dictionary<string, object> payload = null;
+        public Dictionary<string, object> payload = null;
 
 		public static float AnimationSpeed = 0.07f;
 		private float animationTimer = AnimationSpeed;
@@ -39,7 +41,12 @@ namespace Game {
 
 		private void ActionComplete(){
 			action_type = ActionType.none;
-			payload = null;
+            if (payload.ContainsKey("callback"))
+            {
+                ActionCallback cb = payload["callback"] as ActionCallback;
+                cb(payload);
+            }
+            payload = null;
 		}
 
 	}

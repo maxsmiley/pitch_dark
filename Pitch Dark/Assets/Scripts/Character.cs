@@ -47,6 +47,12 @@ namespace Game {
 		{
 			// TODO: Move this logic to UIManager?
 			// TODO: decide if should call -> base.highlightChanged ();
+			updateVisuals ();
+
+		}
+
+		// Move to a new Visuals Class
+		protected  void updateVisuals(){
 			GetComponent<ParticleSystem>().enableEmission = isSelected();
 			updateColor ();
 		}

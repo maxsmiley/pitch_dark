@@ -5,6 +5,7 @@ using System;
 
 namespace Game {
 	//TODO: rename Interface?
+    //TODO: move different pillars of UI into their own classes, for example UIManager_Movement?
 	public class UIManager : MonoBehaviour {
 
 		// Instantiated in Inspector
@@ -12,7 +13,7 @@ namespace Game {
 		public ObjectFactory factory;
 
 		// UI Control flow
-		enum UI_Mode {
+		public enum UI_Mode {
 			// Each turn there is 
 			// The player selects what to do on the current units turn (can look around)
 			player_unit_turn_pre_action,
@@ -27,6 +28,7 @@ namespace Game {
 		private UI_Mode mode = UI_Mode.player_unit_turn_pre_action;
 		private UI_Action action = UI_Action.none;
 		private Character selectedCharacter = null; //probably should be handled by game logic?
+		private Tile highlightedTile = null; //maybe should be handled by game logic?
 
 		// Data
 		public List<Informant> informants = new List<Informant> ();
@@ -57,18 +59,29 @@ namespace Game {
 			setHighlight (informant, false);
 		}
 
+		private void setMode(UI_Mode mode){
+			this.mode = mode;
+		}
+
 		// TODO: await for a mouse down instead...
 		public void MouseDowned(Informant informant) {
 			// Move
 			if (mode == UI_Mode.player_unit_turn_during_action && action == UI_Action.move) {
 				if (IsSameOrSubclass(typeof(Tile), informant.GetType())) {
-					Dictionary<string, object> payload = new Dictionary<string, object>()
+					Dictionary<string, object> move_payload = new Dictionary<string, object>()
 					{
 						{"action", ActionType.move},
 						{"character", selectedCharacter},
 						{"path", walking_path},
 					};
-					game.addAction(payload);
+					game.addAction(move_payload);
+					foreach (var tile in selectedCharacter.move_range) {
+						tile.setWalkableForSelectedCharacter(false);
+					}
+					if (display_walking_path != null) {
+						display_walking_path.dispose ();
+						display_walking_path = null;
+					}
 				}
 			} else if (mode == UI_Mode.player_unit_turn_pre_action) {
 				// Set selections
@@ -76,7 +89,7 @@ namespace Game {
 			}
 		}
 
-		private void updateMovePath(){
+		private void updateDisplayMovePath() {
 			if (selectedCharacter != null) {
 				if (selectedCharacter.move_range != null && selectedCharacter.isSelected ())
 				foreach (var tile in selectedCharacter.move_range) {
@@ -119,12 +132,16 @@ namespace Game {
 					//TODO: for now this switches to movement mode, 
 					// in the future this should be trigged by a button in the UI or a keypress or something explicit 
 					// not just by click a character should it prompt a move...
-					this.selectedCharacter = character;
+					if (select) {
+						this.selectedCharacter = character;
+					} else if (selectedCharacter == character) {
+						this.selectedCharacter = null;
+					}
 					foreach (var tile in character.move_range) {
 						tile.setWalkableForSelectedCharacter(select);
-						this.mode = UI_Mode.player_unit_turn_during_action;
-						this.action = UI_Action.move;
 					}
+					setMode (UI_Mode.player_unit_turn_during_action);
+					this.action = UI_Action.move;
 				}
 			}
 		}
@@ -156,17 +173,10 @@ namespace Game {
 				if (IsSameOrSubclass(typeof(Tile), informant.GetType())) {
 					Tile tile = informant as Tile;
 					if (tile != goal) {
-						updateMovePath();
+						updateDisplayMovePath();
 						goal = tile;
 					}
 				}
-			}
-		}
-
-		public void setInRange(Informant informant, bool inRange){
-			if (IsSameOrSubclass (typeof(GridThing), informant.GetType ())) {
-				GridThing gridThing = informant as GridThing;
-
 			}
 		}
 
@@ -176,9 +186,9 @@ namespace Game {
 				|| potentialDescendant == potentialBase;
 		}
 
-		public void addInformant(Informant informant){
-
-		}
+//		public void addInformant(Informant informant){
+//
+//		}
 
 
 	}

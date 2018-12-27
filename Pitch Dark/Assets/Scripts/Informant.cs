@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Listener that informs ui_manager of mouse events 
 namespace Game {
 	public class Informant : MonoBehaviour {
 		protected UIManager ui_manager;
